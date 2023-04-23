@@ -7,6 +7,12 @@ const MINTRANSX = -15;
 const MAXTRANSY = 25;
 const MINTRANSY = -25;
 
+const MAXFLOATY = -8;
+const MINFLOATY = -3;
+
+const MAXFLOATYDELAY = .8;
+const MINFLOATYDELAY = 0;
+
 enhance = id => {
     var elem = document.getElementById(id);
     
@@ -16,26 +22,35 @@ enhance = id => {
         elem.addEventListener("mouseenter", applyTransformations);
 
         for (const i in word) {
-            var span = document.createElement('SPAN');
+            var outerSpan = document.createElement('SPAN');
+            outerSpan.setAttribute('class', 'outer');
 
+            var span = document.createElement('SPAN');
             span.setAttribute('class', 'letter');
             span.innerText = word[i];
 
-            elem.append(span);
+            outerSpan.append(span);
+            elem.append(outerSpan);
         }
     }
 }
 
 function applyTransformations() {
-    this.querySelectorAll('span').forEach(letter => {
+    this.querySelectorAll('.letter').forEach(letter => {
         setRandomValue(letter, '--rotateDeg', MINROTATE, MAXROTATE, 'deg');
         setRandomValue(letter, '--transformX', MAXTRANSX, MINTRANSX, 'px');
         setRandomValue(letter, '--transformY', MAXTRANSY, MINTRANSY, 'px');
     });
+
+    this.querySelectorAll('.outer').forEach(letter => {
+        setRandomValue(letter, '--floatY', MINFLOATY, MAXFLOATY, 'px', false);
+        setRandomValue(letter, '--floatYDelay', MINFLOATYDELAY, MAXFLOATYDELAY, 's', false);
+    });
 }
 
-function setRandomValue(elem, property, min, max, unit) {
-    elem.style.setProperty(property, (Math.floor(Math.random() * (max - min + 1)) + min) + unit);
+function setRandomValue(elem, property, min, max, unit, floor = true) {
+    var val = floor ? (Math.floor(Math.random() * (max - min + 1)) + min) : (Math.random() * (max - min + 1) + min);
+    elem.style.setProperty(property, val + unit);
 }
 
 enhance('github');

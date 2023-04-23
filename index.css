@@ -44,3 +44,22 @@ body {
 .fancy:hover .letter {
     transform: translate(var(--transformX), var(--transformY)) rotate(var(--rotateDeg));
 }
+
+.outer {
+    display: inline-block;
+}
+
+.fancy:hover .outer {
+    animation: float 3s linear var(--floatYDelay) infinite;
+}
+
+@keyframes float {
+    from,
+    to {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(var(--floatY));
+    }
+}
