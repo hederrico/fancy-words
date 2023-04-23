@@ -13,7 +13,7 @@ enhance = id => {
     if(elem) {
         var word = elem.innerText;
         elem.innerHTML = '';
-        elem.addEventListener("mouseenter", rotate);
+        elem.addEventListener("mouseenter", applyTransformations);
 
         for (const i in word) {
             var span = document.createElement('SPAN');
@@ -26,7 +26,7 @@ enhance = id => {
     }
 }
 
-function rotate() {
+function applyTransformations() {
     this.querySelectorAll('span').forEach(letter => {
         setRandomValue(letter, '--rotateDeg', MINROTATE, MAXROTATE, 'deg');
         setRandomValue(letter, '--transformX', MAXTRANSX, MINTRANSX, 'px');
